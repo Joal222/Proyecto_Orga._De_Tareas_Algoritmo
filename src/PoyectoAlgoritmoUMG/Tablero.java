@@ -5,6 +5,6 @@ package PoyectoAlgoritmoUMG;
  */
 public class Tablero {
     //creando la clase tablero
-    String nombre;
-    int id;
+    String NomTab;
+    int idTab;
 }
