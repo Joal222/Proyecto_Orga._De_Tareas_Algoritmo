@@ -6,6 +6,6 @@ package PoyectoAlgoritmoUMG;
 public class Ejecutor {
     public static void main(String[] args) {
         //01/10/2022 Inciando Proyecto.
-        
+      
     }
 }

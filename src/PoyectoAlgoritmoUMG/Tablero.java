@@ -9,4 +9,27 @@ public class Tablero {
     para el identificor unico*/
     private String NomTab;
     private int idTab;
+    
+    //metodo Constructor
+    public Tablero(String NomTab, int idTab) {
+        this.NomTab = NomTab;
+        this.idTab = idTab;
+    }
+    //metodo Consultor
+    public String getNomTab() {
+        return this.NomTab;
+    }
+
+    public int getIdTab() {
+        return this.idTab;
+    }
+    //metodo modificador
+    public void setNomTab(String NomTab) {
+        this.NomTab = NomTab;
+    }
+
+    public void setIdTab(int idTab) {
+        this.idTab = idTab;
+    }
+    
 }

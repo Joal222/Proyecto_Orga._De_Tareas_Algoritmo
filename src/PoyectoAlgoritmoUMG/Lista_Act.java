@@ -10,6 +10,37 @@ public class Lista_Act {
     private String nomlisAct;
     private String fechaLisAct;
     private int idLisAct;
+    
+    //metodo constructor
+    public Lista_Act(String nomlisAct, String fechaLisAct, int idLisAct) {
+        this.nomlisAct = nomlisAct;
+        this.fechaLisAct = fechaLisAct;
+        this.idLisAct = idLisAct;
+    }
+    //metodo Consultor
+    public String getNomlisAct() {
+        return this.nomlisAct;
+    }
+
+    public String getFechaLisAct() {
+        return this.fechaLisAct;
+    }
+
+    public int getIdLisAct() {
+        return this.idLisAct;
+    }
+    //metodo Modificador 
+    public void setNomlisAct(String nomlisAct) {
+        this.nomlisAct = nomlisAct;
+    }
+
+    public void setFechaLisAct(String fechaLisAct) {
+        this.fechaLisAct = fechaLisAct;
+    }
+
+    public void setIdLisAct(int idLisAct) {
+        this.idLisAct = idLisAct;
+    }
    
     
 }
