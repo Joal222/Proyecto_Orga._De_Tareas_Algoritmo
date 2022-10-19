@@ -1,9 +1,12 @@
 package PoyectoAlgoritmoUMG;
+
+import java.io.Serializable;
+
 /**
  *
  * @author avila
  */
-public class Tablero {
+public class Tablero implements Serializable{
     /* La clase tablero fue creaada para almacenar los objetos de tipo tablero 
     se necesita el atributo nombre de tablero para almacenar los nombres y el de idTab
     para el identificor unico*/
@@ -32,4 +35,7 @@ public class Tablero {
         this.idTab = idTab;
     }
     
+    public String toString(){
+        return this.idTab + ") El nombre del tablero es: " + this.NomTab;
+    }
 }
