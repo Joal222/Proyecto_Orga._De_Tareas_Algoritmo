@@ -30,6 +30,9 @@ public class Lista_Tarea {
     public void setIdList(int idList) {
         this.idList = idList;
     }
+    public String mostList(){
+        return "El nombre es " + this.nomList;
+    }
     
     
    

@@ -42,7 +42,10 @@ public class Actividades {
     public void setIdAct(int idAct) {
         this.idAct = idAct;
     }
-    
+    public String mostAct (){
+         return "La Actividad es:" + this.nomAct;
+    }
+   
     
     
 }

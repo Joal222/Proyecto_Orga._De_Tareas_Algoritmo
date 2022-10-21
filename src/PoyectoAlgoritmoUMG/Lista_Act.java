@@ -41,6 +41,9 @@ public class Lista_Act {
     public void setIdLisAct(int idLisAct) {
         this.idLisAct = idLisAct;
     }
+   public String mostListAc (){
+       return "La lista de actividad es: " + this.nomlisAct;
+   }
    
     
 }

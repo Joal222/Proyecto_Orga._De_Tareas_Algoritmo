@@ -42,7 +42,10 @@ public class Tareas {
     public void setIdTar(int idTar) {
         this.idTar = idTar;
     }
-    
+    public String mostTarea(){
+        return "La tarea es: " + this.nomTar ;
+    }
+  
     
     
 }

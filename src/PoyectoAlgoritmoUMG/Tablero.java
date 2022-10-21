@@ -36,6 +36,6 @@ public class Tablero implements Serializable{
     }
     
     public String toString(){
-        return this.idTab + ") El nombre del tablero es: " + this.NomTab;
+        return "El nombre del tablero es: " + this.NomTab;
     }
 }
