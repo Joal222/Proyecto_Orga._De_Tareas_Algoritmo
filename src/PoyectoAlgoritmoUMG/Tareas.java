@@ -1,10 +1,12 @@
 package PoyectoAlgoritmoUMG;
 
+import java.io.Serializable;
+
 /**
  *
  * @author avila
  */
-public class Tareas {
+public class Tareas implements Serializable{
     /*En la clase tareas se almacenaran todos los objetos de clase tareas
     necesitamos un atributo para el nombre de la tarea, uno para la descripción 
     y un atributo para el identificador unico*/
@@ -43,7 +45,8 @@ public class Tareas {
         this.idTar = idTar;
     }
     public String mostTarea(){
-        return "La tarea es: " + this.nomTar ;
+        return "La tarea es: " + this.nomTar + "\nDescipcion: " + this.descriTar;
+                
     }
   
     

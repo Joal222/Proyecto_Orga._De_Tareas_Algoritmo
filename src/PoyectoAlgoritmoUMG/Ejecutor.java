@@ -32,6 +32,10 @@ public class Ejecutor {
         int opc7 = 0; //para ingresar a una lista de Tareas
         int pivoteLisTa = 0;//pivote para lista de tareas
         int opc8 = 0; //opciones de lista de tareas
+        int idTarea = 1; //id Tareas
+        int contadorTarea = 0;//para contador/id de las tareas
+        int opc11 = 0; //para ingresar a una Tareas 
+        int pivoteTarea =0;//pivote para de tareas
         
         String opc5 = " ";//opcion de eliminar un tablero
         String error = "Error, Porfavor Digite una opcion Valida"; //para mostrar error
@@ -42,23 +46,27 @@ public class Ejecutor {
         String opc6 = ""; //confirmacion de ingresar a una Lista de Tareas
         String opc9 = " "; //opcion de eliminar una Lista de Tareas
         String newNameLisTa = ""; //para guardar el nuevo nombre de la lisTa de Tareas
-        
+        String nameTarea = "";//para las tareas
+        String descTarea="";//para descripcion de la tarea
+        String opc10 = ""; //confirmacion de ingresar a una Lista de Tareas
         
         
         
         //Creamos nuestros archivos
         File docum = new File ("C:\\Users\\avila\\OneDrive\\Escritorio\\Pro. Algo\\MyProyAlg\\Tablero_Orga\\tabs.txt");
         File documListTa = new File ("C:\\Users\\avila\\OneDrive\\Escritorio\\Pro. Algo\\MyProyAlg\\Tablero_Orga\\Lista Tareas\\ListaTarea.txt");
+        File documTarea = new File ("C:\\Users\\avila\\OneDrive\\Escritorio\\Pro. Algo\\MyProyAlg\\Tablero_Orga\\Lista Tareas\\Tareas\\tarea.txt");
         
         
         //nuestra referencia del objetos 
         Tablero tab;
         Lista_Tarea lisTa;
+        Tareas tar;
         
         //Vectores
         Vector tableros = new Vector(); 
         Vector listTarea = new Vector();
-        
+        Vector tareas = new Vector ();
         do {
             System.out.println("--------------------------------");
             System.out.println("| "+"Bienvenido A Su Organizador "+" |");
@@ -156,8 +164,8 @@ public class Ejecutor {
                                                   if (opc6.equals("Si")) {
                                                        System.out.println("Ingrese el Id de la Lista a la que desea Ingresar");
                                                        opc7 = JA.nextInt();
-                                                       if (opc7 <= tableros.size()) {
-                                                           pivoteLisTa = opc3 -1;
+                                                       if (opc7 <= listTarea.size()) {
+                                                           pivoteLisTa = opc7 -1;
                                                            do {
                                                                System.out.println("\n1. Ver Taras");
                                                                System.out.println("2. Crear Tareas");
@@ -166,13 +174,87 @@ public class Ejecutor {
                                                                System.out.println("5. Regresar al menu Principal");
                                                                opc8 = JA.nextInt();
                                                                switch (opc8){
+         //**************************************************************************************************************************************************************                                                          
                                                                    case 1:
+                                                                        if (!documTarea.isFile()) { //inicio if
+                                                                            System.out.println("\nNo se ha Creado ninguna Tareas. \nCree una Nueva Tareas\n"); 
+                                                       /*finIF*/        }else{ //inicio else leer tareas                                            
+                                                                          try{
+                                                                            //leer archivo nuestro Vector de Lista Tareas
+                                                                            FileInputStream leerTarea = new FileInputStream (documTarea);
+                                                                            ObjectInputStream leerobjTar = new ObjectInputStream(leerTarea);
+                                                                            //Castiiiing para hacer el cambio de un tipo de dato a otro
+                                                                            tareas=(Vector)leerobjTar.readObject();    
+
+                                                                        }catch(FileNotFoundException e){
+                                                                            e.printStackTrace();
+
+                                                                        }catch(IOException e){
+                                                                            e.printStackTrace();
+
+                                                                        }catch(ClassNotFoundException e){
+                                                                            e.printStackTrace();                        
+                                                                        }
+                                                                         //Casting de los objetos de tipo Tablero de nuestro vector.
+                                                                            System.out.println("Bienvenido a sus Listas de Tareas");
+                                                                            for (int i = 0; i < tareas.size(); i++) {                          
+                                                                             tar=(Tareas)tareas.elementAt(i);                           
+                                                                             System.out.println(contadorTarea + ") "+ tar.mostTarea());
+                                                                             contadorTarea++;
+                                                                             }
+                                                                                contadorTarea=1;
+                                                                                System.out.println("\nDesea Ingresar a alguna Lista De Tareas");
+                                                                                System.out.println("Si/No");
+                                                                                opc10 = JA.next();
+                                                                                if (opc10.equals("Si")) {
+                                                                                    System.out.println("Ingrese el Id de la Lista a la que desea Ingresar");
+                                                                                    opc11 = JA.nextInt();    
+                                                                                    if (opc11 <= tareas.size()) {
+                                                                                        pivoteTarea = opc11 -1;
+                                                                                        
+                                                                                    }else{ //else pivote
+                                                                                        
+                                                                                    }//fin else pivote
+                                                                            }else{//else equals
+                                                                                    
+                                                                                }//fin else equals
+                                                                            
+                                                                        }//Fin else leer tareas
                                                                        break;
-                                                                        
-                                                                   case 2:
+         //**************************************************************************************************************************************************************                                                               
+                                                                   case 2://crear Tarea
+                                                                        System.out.println("Ha seleccionado la opcion: " + opc4 + " Crear una Tarea") ;      
+                                                                        System.out.println("Ingrese el nombre de su Nueca Tareas");
+                                                                        nameTarea = JA.next();
+                                                                        System.out.println("Agregue una Descripcion a su Tarea");
+                                                                        descTarea = JA.next();
+                                                                        try{
+                                                                            if(idTarea != tareas.size()){
+                                                                               idTarea = tareas.size()+1;
+                                                                              }
+                                                                          tar = new Tareas(nameTarea,descTarea,idTarea);
+                                                                          idTarea++;
+                                                                          tareas.add(tar);
+                                                                          //Escribiendo Nuestras Lista de Tareas
+                                                                          FileOutputStream crearTarea = new FileOutputStream (documTarea);
+                                                                          ObjectOutputStream objTarea = new ObjectOutputStream(crearTarea);
+
+
+                                                                          objTarea.writeObject(tareas);
+                                                                          System.out.println("La Tarea '" + nameTarea + "' Se creo Exitosamente\n" );
+
+
+
+                                                                        }catch(FileNotFoundException e){
+                                                                          e.printStackTrace();
+
+                                                                        }catch(IOException e){
+                                                                          e.printStackTrace();
+                                                                        }
+                                                                        System.out.println("La Tareas Se Ha Creado Exitosamente");
                                                                        
                                                                        break;
-         //**************************************************************************************************************************************************************                                                                     
+                                                                              
                                                                    case 3:// Cambiar name a la lista de Tareas                                                                      
                                                                         System.out.println("Ingrese el nuevo nombre de La Lista de Taras");
                                                                         newNameLisTa = JA.next();   
@@ -198,7 +280,7 @@ public class Ejecutor {
                                                                          System.out.println("\nEl Nombre se ha Cambiado Exitosamente");
                                                                        
                                                                        break;
-         //*************************************************************************************************************************************************************                                                               
+                                                                        
                                                                    case 4://borrar tab
                                                                       
                                                                         System.out.println("Esta seguro de que desea eliminar una lista de Tareas \n S/N");
