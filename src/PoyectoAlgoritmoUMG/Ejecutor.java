@@ -33,9 +33,10 @@ public class Ejecutor {
         int pivoteLisTa = 0;//pivote para lista de tareas
         int opc8 = 0; //opciones de lista de tareas
         int idTarea = 1; //id Tareas
-        int contadorTarea = 0;//para contador/id de las tareas
+        int contadorTarea = 1;//para contador/id de las tareas
         int opc11 = 0; //para ingresar a una Tareas 
         int pivoteTarea =0;//pivote para de tareas
+        int opc12 = 0; //opciones de Tarea
         
         String opc5 = " ";//opcion de eliminar un tablero
         String error = "Error, Porfavor Digite una opcion Valida"; //para mostrar error
@@ -49,6 +50,9 @@ public class Ejecutor {
         String nameTarea = "";//para las tareas
         String descTarea="";//para descripcion de la tarea
         String opc10 = ""; //confirmacion de ingresar a una Lista de Tareas
+        String opc13=""; //opcion para eliminar una tarea
+        String newNameTar = "";//para guardar el nuevo nombre de la tarea
+        
         
         
         
@@ -174,7 +178,7 @@ public class Ejecutor {
                                                                System.out.println("5. Regresar al menu Principal");
                                                                opc8 = JA.nextInt();
                                                                switch (opc8){
-         //**************************************************************************************************************************************************************                                                          
+                                                                   
                                                                    case 1:
                                                                         if (!documTarea.isFile()) { //inicio if
                                                                             System.out.println("\nNo se ha Creado ninguna Tareas. \nCree una Nueva Tareas\n"); 
@@ -212,6 +216,91 @@ public class Ejecutor {
                                                                                     if (opc11 <= tareas.size()) {
                                                                                         pivoteTarea = opc11 -1;
                                                                                         
+                                                                                        do {
+                                                                                            System.out.println("\n1. Ver lista de Actividades");
+                                                                                            System.out.println("2. Crear Lista de Actividades");
+                                                                                            System.out.println("3. Cambiar nombre de la Tareas");
+                                                                                            System.out.println("4. Borrar Tarea");
+                                                                                            System.out.println("5. Regresar al menu Principal");
+                                                                                            opc12 = JA.nextInt();
+                                                                                            switch (opc12){
+                                                                                                case 1:
+                                                                                                    break;
+                                                                                                case 2:
+                                                                                                    break;
+                                            //**************************************************************************************************************************************************************                                                        
+                                                                                                case 3://Cambiar nombre de la tarea
+                                                                                                    System.out.println("Ingrese el nuevo nombre de la Taras");
+                                                                                                    newNameTar = JA.next();   
+                                                                                                    //eliminar tab
+                                                                                                    tareas.remove(pivoteTarea);
+                                                                                                    //
+                                                                                                    tar = new Tareas (newNameTar,descTarea,pivoteTarea);
+                                                                                                       try{
+                                                                                                      //Sobreescribiendo nuestro objeto para el cambio de nombre
+                                                                                                    FileOutputStream cambioNameTare = new FileOutputStream (documTarea);
+                                                                                                    ObjectOutputStream objCamNameTarea = new ObjectOutputStream(cambioNameTare);
+                                                                                                    tareas.add(pivoteTarea,tar);
+                                                                                                    objCamNameTarea.writeObject(tareas);
+
+
+
+                                                                                                    }catch(FileNotFoundException e){
+                                                                                                     e.printStackTrace();
+
+                                                                                                    }catch(IOException e){
+                                                                                                     e.printStackTrace();
+                                                                                                    }
+                                                                                                     System.out.println("\nEl Nombre se ha Cambiado Exitosamente");
+                                                                                                    break;
+                                            //**************************************************************************************************************************************************************                                                                                
+                                                                                                case 4://Borrar Tarea
+                                                                                                     System.out.println("Esta seguro de que desea eliminar una Tarea \n S/N");
+                                                                                                     opc13 = JA.next();
+                                                                                                     if (opc13.equals("S")) {
+                                                                                                        //eliminar objeto en el vector especificado
+                                                                                                        tareas.remove(pivoteTarea);
+                                                                                                        System.out.println("Eliminando Una Tarea...");
+                                                                                                        System.out.println("Tarea Eliminada.");
+                                                                                                        //rescribir
+                                                                                                        try{                 
+                                                                                                          //Escribir en nuestro Archivo. el FileOutput es para escribir objetos en el archivos
+                                                                                                          FileOutputStream flujoTar = new FileOutputStream(documTarea);
+                                                                                                          ObjectOutputStream escObjTar = new ObjectOutputStream(flujoTar);
+
+                                                                                                          //escrib nuestro objeto en nuestro vector
+                                                                                                          escObjTar.writeObject(tareas);
+
+                                                                                                        }catch(FileNotFoundException e){
+                                                                                                           e.printStackTrace();
+                                                                                                        }catch(IOException e){
+                                                                                                           e.printStackTrace();
+                                                                                                        }
+
+
+                                                                                                        //Lista actualizada
+                                                                                                        System.out.println("Taeas Actualizada");
+                                                                                                          for (int i = 0; i < tareas.size(); i++) {
+
+                                                                                                        tar=(Tareas)tareas.elementAt(i);
+                                                                                                        System.out.println(contadorLista +") "+ tar.mostTarea());
+                                                                                                        contadorTarea++;
+                                                                                                      }
+                                                                                                        contadorTarea=1;  
+                                                                                                        opc12 = 5;
+                                                                                                     }else{
+                                                                                                        opc12 = 5;
+                                                                                                     }
+                                                                       
+                                                                                                    break;
+                                                                                                                                            
+                                                                                                case 5:
+                                                                                                    opc12 = 5;
+                                                                                                    break;                                                                                                   
+                                                                                                default:
+                                                                                                    System.out.println(error);
+                                                                                            }
+                                                                                        } while (opc12 !=5);
                                                                                     }else{ //else pivote
                                                                                         
                                                                                     }//fin else pivote
@@ -221,7 +310,7 @@ public class Ejecutor {
                                                                             
                                                                         }//Fin else leer tareas
                                                                        break;
-         //**************************************************************************************************************************************************************                                                               
+                                                                        
                                                                    case 2://crear Tarea
                                                                         System.out.println("Ha seleccionado la opcion: " + opc4 + " Crear una Tarea") ;      
                                                                         System.out.println("Ingrese el nombre de su Nueca Tareas");
@@ -281,13 +370,13 @@ public class Ejecutor {
                                                                        
                                                                        break;
                                                                         
-                                                                   case 4://borrar tab
+                                                                   case 4://borrar Lista de Tareas
                                                                       
                                                                         System.out.println("Esta seguro de que desea eliminar una lista de Tareas \n S/N");
                                                                         opc9 = JA.next();
                                                                         if (opc9.equals("S")) {
                                                                             //eliminar objeto en el vector especificado
-                                                                            listTarea.remove(opc7);
+                                                                            listTarea.remove(pivoteLisTa);
                                                                             System.out.println("Eliminando Lista de Tareas...");
                                                                             System.out.println("Lista de Tareas Eliminada.");
                                                                             //rescribir
@@ -399,7 +488,7 @@ public class Ejecutor {
                                               opc5 = JA.next();
                                               if (opc5.equals("S")) {
                                                   //eliminar objeto en el vector especificado
-                                                  tableros.remove(opc3);
+                                                  tableros.remove(pivote);
                                                   System.out.println("Eliminando Tablero...");
                                                   System.out.println("Tablero Eliminado.");
                                                   //rescribir
