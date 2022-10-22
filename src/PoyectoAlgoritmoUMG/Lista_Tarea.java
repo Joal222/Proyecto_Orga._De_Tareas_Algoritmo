@@ -1,10 +1,12 @@
 package PoyectoAlgoritmoUMG;
 
+import java.io.Serializable;
+
 /**
  *
  * @author avila
  */
-public class Lista_Tarea {
+public class Lista_Tarea implements Serializable{
     /*En la clase Lista tareas se creo para almacenar todos los objetos de clase listaTarea
     necesitaremos un atributo para el nombre de la lista y uno para el identificador unico*/
     private String nomList;
@@ -31,7 +33,7 @@ public class Lista_Tarea {
         this.idList = idList;
     }
     public String mostList(){
-        return "El nombre es " + this.nomList;
+        return "El nombre de la Lista de Tareas es: " + this.nomList;
     }
     
     
