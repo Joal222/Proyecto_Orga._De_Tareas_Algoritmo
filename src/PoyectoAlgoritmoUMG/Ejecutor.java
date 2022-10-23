@@ -37,6 +37,14 @@ public class Ejecutor {
         int opc11 = 0; //para ingresar a una Tareas 
         int pivoteTarea =0;//pivote para de tareas
         int opc12 = 0; //opciones de Tarea
+        int idLisAc = 1;//id lista Actividades
+        int contadorLisAc = 1;//para contador/id de la lista de Actividades
+        int opc15 = 0; //para ingresar a una lista de actividades
+        int pivoteListaAtiv = 0;//pivote para lista de Actividades
+        int opc16 = 0; //opciones lista de Actividades
+        int idAct = 1; // id para actividades
+        int contadorAct = 1; //contador de actividades
+        
         
         String opc5 = " ";//opcion de eliminar un tablero
         String error = "Error, Porfavor Digite una opcion Valida"; //para mostrar error
@@ -52,25 +60,36 @@ public class Ejecutor {
         String opc10 = ""; //confirmacion de ingresar a una Lista de Tareas
         String opc13=""; //opcion para eliminar una tarea
         String newNameTar = "";//para guardar el nuevo nombre de la tarea
-        
-        
-        
+        String nameLisAc = "";//para la Lista de Actividades
+        String opc14 =" "; //confirmacion de ingresar a una Lista de Actividades
+        String opc17 ="";//eliminar una lista de Actividades
+        String newNameLisAc="";//cambiar nombre de lista de actividades
+        String nameActi = ""; //para actividades
+        String opc18 =""; //para confirmacion de ingreso a una actividad
+        String opc19 = ""; //para ingresar a 
         
         //Creamos nuestros archivos
         File docum = new File ("C:\\Users\\avila\\OneDrive\\Escritorio\\Pro. Algo\\MyProyAlg\\Tablero_Orga\\tabs.txt");
         File documListTa = new File ("C:\\Users\\avila\\OneDrive\\Escritorio\\Pro. Algo\\MyProyAlg\\Tablero_Orga\\Lista Tareas\\ListaTarea.txt");
         File documTarea = new File ("C:\\Users\\avila\\OneDrive\\Escritorio\\Pro. Algo\\MyProyAlg\\Tablero_Orga\\Lista Tareas\\Tareas\\tarea.txt");
+        File documlisActi = new File ("C:\\Users\\avila\\OneDrive\\Escritorio\\Pro. Algo\\MyProyAlg\\Tablero_Orga\\Lista Tareas\\Tareas\\Lista Actividades\\listActiv.txt");
+        File documActi = new File ("C:\\Users\\avila\\OneDrive\\Escritorio\\Pro. Algo\\MyProyAlg\\Tablero_Orga\\Lista Tareas\\Tareas\\Lista Actividades\\Actividades\\activ.txt");
         
         
         //nuestra referencia del objetos 
         Tablero tab;
         Lista_Tarea lisTa;
         Tareas tar;
+        Lista_Act lisAc;
+        Actividades act;
         
         //Vectores
         Vector tableros = new Vector(); 
         Vector listTarea = new Vector();
         Vector tareas = new Vector ();
+        Vector listaAct = new Vector ();
+        Vector actividad = new Vector();
+        
         do {
             System.out.println("--------------------------------");
             System.out.println("| "+"Bienvenido A Su Organizador "+" |");
@@ -85,7 +104,7 @@ public class Ejecutor {
             
             //Switch para los menus
             switch (opc1){
-                case 1:
+                case 1: //ver Tabs
                     if(!docum.isFile()){//inicioIf 
                         System.out.println("\nNo se ha Creado ningun Tablero. \n\"Cree un tablero Nuevo\n");                      
                     }else{
@@ -134,7 +153,7 @@ public class Ejecutor {
                                       
                                       switch (opc4){
       
-                                          case 1:
+                                          case 1: //ver lisTa
                                               if (!documListTa.isFile()) { //inicio if
                                                   System.out.println("\nNo se ha Creado ninguna Lista de Tareas. \nCree una Nueva Lista de Tareas\n"); 
                              /*finIF*/        }else{ //inicio else leer lista tareas                                            
@@ -179,7 +198,7 @@ public class Ejecutor {
                                                                opc8 = JA.nextInt();
                                                                switch (opc8){
                                                                    
-                                                                   case 1:
+                                                                   case 1://ver tareas
                                                                         if (!documTarea.isFile()) { //inicio if
                                                                             System.out.println("\nNo se ha Creado ninguna Tareas. \nCree una Nueva Tareas\n"); 
                                                        /*finIF*/        }else{ //inicio else leer tareas                                            
@@ -224,11 +243,236 @@ public class Ejecutor {
                                                                                             System.out.println("5. Regresar al menu Principal");
                                                                                             opc12 = JA.nextInt();
                                                                                             switch (opc12){
-                                                                                                case 1:
+                                                                                                
+                                                                                                case 1://ver listas de actividades
+                                                                                                    if (!documlisActi.isFile()) {
+                                                                                                        System.out.println("\nNo se ha Creado ninguna Tareas. \nCree una Nueva Tareas\n");  
+                                                                                                    }else{ //inicio else ver Lista Actividades
+                                                                                                      try{
+                                                                                                        //leer archivo nuestro Vector de Lista Tareas
+                                                                                                        FileInputStream leerlistaAct = new FileInputStream (documlisActi);
+                                                                                                        ObjectInputStream leerobjlisAc = new ObjectInputStream(leerlistaAct);
+                                                                                                        //Castiiiing para hacer el cambio de un tipo de dato a otro
+                                                                                                        tareas=(Vector)leerobjlisAc.readObject();    
+
+                                                                                                    }catch(FileNotFoundException e){
+                                                                                                        e.printStackTrace();
+
+                                                                                                    }catch(IOException e){
+                                                                                                        e.printStackTrace();
+
+                                                                                                    }catch(ClassNotFoundException e){
+                                                                                                        e.printStackTrace();                        
+                                                                                                    }
+                                                                                                     //Casting de los objetos de tipo Tablero de nuestro vector.
+                                                                                                        System.out.println("Bienvenido a su lista de Actividades");
+                                                                                                        for (int i = 0; i < listaAct.size(); i++) {                          
+                                                                                                         lisAc=(Lista_Act)listaAct.elementAt(i);                           
+                                                                                                         System.out.println(contadorLisAc + ") "+ lisAc.mostListAc());
+                                                                                                         contadorLisAc++;
+                                                                                                         }
+                                                                                                            contadorLisAc=1;
+                                                                                                            System.out.println("\nDesea Ingresar a una lista de Actividades");
+                                                                                                            System.out.println("Si/No");
+                                                                                                            opc14 = JA.next();  
+                                                                                                            if (opc14.equals("Si")) {
+                                                                                                                 System.out.println("Ingrese el Id de la Lista a la que desea Ingresar");
+                                                                                                                 opc15 = JA.nextInt();
+                                                                                                                 if (opc15 <= listaAct.size()) {
+                                                                                                                     pivoteListaAtiv = opc15 -1;
+                                                                                                                     
+                                                                                                                     do {
+                                                                                                                         System.out.println("\n1. Ver Actividades");
+                                                                                                                         System.out.println("2. Crear Actividad");
+                                                                                                                         System.out.println("3. Cambiar nombre de la Lista de Actividades");
+                                                                                                                         System.out.println("4. Borrar Lista de Actividades");
+                                                                                                                         System.out.println("5. Regresar al menu Principal");
+                                                                                                                         opc16 = JA.nextInt();
+                                                                                                                         switch (opc16){
+                                                            //**************************************************************************************************************************************************************                                                                 
+                                                                                                                             case 1://ver Actividades
+                                                                                                                                 if (!documActi.isFile()) {
+                                                                                                                                     System.out.println("\nNo se ha Creado ninguna Tareas. \nCree una Nueva Tareas\n"); 
+                                                                                                                                 }else{
+                                                                                                                                      try{
+                                                                                                                                        //leer archivo nuestro Vector de Lista Tareas
+                                                                                                                                        FileInputStream leeractiv = new FileInputStream (documActi);
+                                                                                                                                        ObjectInputStream leerobjActi = new ObjectInputStream(leeractiv);
+                                                                                                                                        //Castiiiing para hacer el cambio de un tipo de dato a otro
+                                                                                                                                        actividad=(Vector)leerobjActi.readObject();    
+
+                                                                                                                                      }catch(FileNotFoundException e){
+                                                                                                                                          e.printStackTrace();
+
+                                                                                                                                      }catch(IOException e){
+                                                                                                                                          e.printStackTrace();
+
+                                                                                                                                      }catch(ClassNotFoundException e){
+                                                                                                                                          e.printStackTrace();                        
+                                                                                                                                    }
+                                                                                                                                      //Casting de los objetos de tipo Tablero de nuestro vector.
+                                                                                                                                        System.out.println("Bienvenido a su lista de Actividades");
+                                                                                                                                        for (int i = 0; i < actividad.size(); i++) {                          
+                                                                                                                                         act=(Actividades)actividad.elementAt(i);                           
+                                                                                                                                         System.out.println(contadorAct + ") "+ act.mostAct());
+                                                                                                                                         contadorAct++;
+                                                                                                                                         }
+                                                                                                                                            contadorAct=1;
+                                                                                                                                            System.out.println("Desea regresar\nS/N");
+                                                                                                                                            opc19 = JA.next();
+                                                                                                                                            if (opc19.equals("S")) {
+                                                                                                                                         opc16 = 5;
+                                                                                                                                     }else{
+                                                                                                                                                
+                                                                                                                                            }
+                                                                                                                                 }
+                                                                                                                                 break;
+                                                            //**************************************************************************************************************************************************************                                                                     
+                                                                                                                             case 2://Crear Actividad
+                                                                                                                                 System.out.println("Ha seleccionado la opcion: " + opc16 + " Crear una Actividad") ;      
+                                                                                                                                 System.out.println("Ingrese el nombre de su nueva Lista de Actividades");
+                                                                                                                                 nameActi = JA.next();
+
+                                                                                                                                   try{
+                                                                                                                                       if(idAct != actividad.size()){
+                                                                                                                                          idAct = actividad.size()+1;
+                                                                                                                                         }
+                                                                                                                                     act = new Actividades (nameActi,idAct);
+                                                                                                                                     idAct++;
+                                                                                                                                     actividad.add(act);
+                                                                                                                                     //Escribiendo Nuestras Lista de Tareas
+                                                                                                                                     FileOutputStream crearActividad = new FileOutputStream (documActi);
+                                                                                                                                     ObjectOutputStream objActiv = new ObjectOutputStream(crearActividad);
+
+
+                                                                                                                                     objActiv.writeObject(actividad);
+                                                                                                                                     System.out.println("La Lista de Actividaes '" + nameActi + "' Se creo Exitosamente\n" );
+
+
+
+                                                                                                                                   }catch(FileNotFoundException e){
+                                                                                                                                     e.printStackTrace();
+
+                                                                                                                                   }catch(IOException e){
+                                                                                                                                     e.printStackTrace();
+                                                                                                                                   }
+                                                                                                                                    
+                                                                                                                                 break;
+                                                                                                                                  
+                                                                                                                             case 3://cambiar nombre
+                                                                                                                                  System.out.println("Ingrese el nuevo nombre de la Taras");
+                                                                                                                                    newNameLisAc = JA.next();   
+                                                                                                                                    //eliminar tab
+                                                                                                                                    listaAct.remove(pivoteListaAtiv);
+                                                                                                                                    //
+                                                                                                                                    lisAc = new Lista_Act (newNameLisAc,pivoteListaAtiv);
+                                                                                                                                       try{
+                                                                                                                                      //Sobreescribiendo nuestro objeto para el cambio de nombre
+                                                                                                                                    FileOutputStream cambioNameLisAc = new FileOutputStream (documlisActi);
+                                                                                                                                    ObjectOutputStream objCamNameLisAc = new ObjectOutputStream(cambioNameLisAc);
+                                                                                                                                    listaAct.add(pivoteListaAtiv,lisAc);
+                                                                                                                                    objCamNameLisAc.writeObject(listaAct);
+
+
+
+                                                                                                                                    }catch(FileNotFoundException e){
+                                                                                                                                     e.printStackTrace();
+
+                                                                                                                                    }catch(IOException e){
+                                                                                                                                     e.printStackTrace();
+                                                                                                                                    }
+                                                                                                                                     System.out.println("\nEl Nombre se ha Cambiado Exitosamente");
+                                                                                                                                    
+                                                                                                                                 break;
+                                                                                                                                 
+                                                                                                                             case 4://borrar Lista de Actividades
+                                                                                                                                  System.out.println("Esta seguro de que desea eliminar lista de Actividades \n S/N");
+                                                                                                                                    opc17 = JA.next();
+                                                                                                                                    if (opc17.equals("S")) {
+                                                                                                                                       //eliminar objeto en el vector especificado
+                                                                                                                                       listaAct.remove(pivoteListaAtiv);
+                                                                                                                                       System.out.println("Eliminando Lista de Actividades...");
+                                                                                                                                       System.out.println("Lista de Actividades Eliminada.");
+                                                                                                                                       //rescribir
+                                                                                                                                       try{                 
+                                                                                                                                         //Escribir en nuestro Archivo. el FileOutput es para escribir objetos en el archivos
+                                                                                                                                         FileOutputStream flujolisAc = new FileOutputStream(documlisActi);
+                                                                                                                                         ObjectOutputStream escObjLisAc = new ObjectOutputStream(flujolisAc);
+
+                                                                                                                                         //escrib nuestro objeto en nuestro vector
+                                                                                                                                         escObjLisAc.writeObject(listaAct);
+
+                                                                                                                                       }catch(FileNotFoundException e){
+                                                                                                                                          e.printStackTrace();
+                                                                                                                                       }catch(IOException e){
+                                                                                                                                          e.printStackTrace();
+                                                                                                                                       }
+
+
+                                                                                                                                       //Lista actualizada
+                                                                                                                                       System.out.println("Taeas Actualizada");
+                                                                                                                                         for (int i = 0; i < listaAct.size(); i++) {
+
+                                                                                                                                       lisAc=(Lista_Act)listaAct.elementAt(i);
+                                                                                                                                       System.out.println(contadorLisAc +") "+ lisAc.mostListAc());
+                                                                                                                                       contadorLisAc++;
+                                                                                                                                     }
+                                                                                                                                       contadorLisAc=1;  
+                                                                                                                                       opc16 = 5;
+                                                                                                                                    }else{
+                                                                                                                                       opc16 = 5;
+                                                                                                                                    }
+                                                                                                                                 break;
+                                                                                                                                 
+                                                                                                                             case 5://regresar al menu
+                                                                                                                                 opc16 = 5;
+                                                                                                                                 break;
+                                                                                                                             default:
+                                                                                                                                 System.out.println(error);
+                                                                                                                         }
+                                                                                                                     } while (opc16 !=5);
+                                                                                                                }else{ //else pivote
+                                                                                                                     
+                                                                                                                 } //fin else pivote                                                                                                                                                                                                                       
+                                                                                                        }else{ //else equals
+                                                                                                              System.out.println("Regresando...");  
+                                                                                                            }//fin else equals
+                                                                                                    } //Fin else lista Actividades
+                                                                                                    
                                                                                                     break;
-                                                                                                case 2:
+                                                                                                    
+                                                                                                case 2: //Crear Lista de Actiividades
+                                                                                                    System.out.println("Ha seleccionado la opcion: " + opc12 + " Crear una Lista de Actividades") ;      
+                                                                                                    System.out.println("Ingrese el nombre de su nueva Lista de Actividades");
+                                                                                                    nameLisAc = JA.next();
+                                                                                                   
+                                                                                                    try{
+                                                                                                        if(idLisAc != listaAct.size()){
+                                                                                                           idLisAc = listaAct.size()+1;
+                                                                                                          }
+                                                                                                      lisAc = new Lista_Act (nameLisAc,idLisAc);
+                                                                                                      idLisAc++;
+                                                                                                      listaAct.add(lisAc);
+                                                                                                      //Escribiendo Nuestras Lista de Tareas
+                                                                                                      FileOutputStream crearListaAct = new FileOutputStream (documlisActi);
+                                                                                                      ObjectOutputStream objlistAc = new ObjectOutputStream(crearListaAct);
+
+
+                                                                                                      objlistAc.writeObject(listaAct);
+                                                                                                      System.out.println("La Lista de Actividaes '" + nameLisAc + "' Se creo Exitosamente\n" );
+
+
+
+                                                                                                    }catch(FileNotFoundException e){
+                                                                                                      e.printStackTrace();
+
+                                                                                                    }catch(IOException e){
+                                                                                                      e.printStackTrace();
+                                                                                                    }
+                                                                                                    System.out.println("La Lista de Actividades Se Ha Creado Exitosamente");
+                                                                       
                                                                                                     break;
-                                            //**************************************************************************************************************************************************************                                                        
+                                                                                                    
                                                                                                 case 3://Cambiar nombre de la tarea
                                                                                                     System.out.println("Ingrese el nuevo nombre de la Taras");
                                                                                                     newNameTar = JA.next();   
@@ -253,7 +497,7 @@ public class Ejecutor {
                                                                                                     }
                                                                                                      System.out.println("\nEl Nombre se ha Cambiado Exitosamente");
                                                                                                     break;
-                                            //**************************************************************************************************************************************************************                                                                                
+                                                                                                                            
                                                                                                 case 4://Borrar Tarea
                                                                                                      System.out.println("Esta seguro de que desea eliminar una Tarea \n S/N");
                                                                                                      opc13 = JA.next();
@@ -283,7 +527,7 @@ public class Ejecutor {
                                                                                                           for (int i = 0; i < tareas.size(); i++) {
 
                                                                                                         tar=(Tareas)tareas.elementAt(i);
-                                                                                                        System.out.println(contadorLista +") "+ tar.mostTarea());
+                                                                                                        System.out.println(contadorTarea +") "+ tar.mostTarea());
                                                                                                         contadorTarea++;
                                                                                                       }
                                                                                                         contadorTarea=1;  
@@ -305,7 +549,7 @@ public class Ejecutor {
                                                                                         
                                                                                     }//fin else pivote
                                                                             }else{//else equals
-                                                                                    
+                                                                                  System.out.println("Regresando...");   
                                                                                 }//fin else equals
                                                                             
                                                                         }//Fin else leer tareas
